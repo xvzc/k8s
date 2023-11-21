@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+VBoxManage list vms | awk '{print $1}' | xargs -I {} VBoxManage startvm {} --type headless
