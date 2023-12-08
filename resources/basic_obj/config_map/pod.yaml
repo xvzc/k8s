@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-1
+spec:
+  containers:
+  - name: container
+    image: kubetm/init
+    envFrom:
+    - configMapRef:
+        name: cm-dev
+    - secretRef:
+        name: sec-dev
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-1
+spec:
+  containers:
+  - name: container
+    image: kubetm/init
+    envFrom:
+    - configMapRef:
+        name: cm-dev
+    - secretRef:
+        name: sec-dev
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-file
+spec:
+  containers:
+  - name: container
+    image: kubetm/init
+    env:
+    - name: file-c
+      valueFrom:
+        configMapKeyRef:
+          name: cm-file
+          key: file-c.txt
+    - name: file-s
+      valueFrom:
+        secretKeyRef:
+          name: sec-file
+          key: file-s.txt
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-mount
+spec:
+  containers:
+  - name: container
+    image: kubetm/init
+    volumeMounts:
+    - name: file-volume
+      mountPath: /mount
+  volumes:
+  - name: file-volume
+    configMap:
+      name: cm-file

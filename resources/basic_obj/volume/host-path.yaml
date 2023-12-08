@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volume-2
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: worker1.kube-example.com
+  containers:
+  - name: container
+    image: kubetm/init
+    volumeMounts:
+    - name: host-path
+      mountPath: /mount1
+  volumes:
+  - name : host-path
+    hostPath:
+      path: /node-v
+      type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volume-3
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: worker1.kube-example.com
+  containers:
+  - name: container
+    image: kubetm/init
+    volumeMounts:
+    - name: host-path
+      mountPath: /mount1
+  volumes:
+  - name : host-path
+    hostPath:
+      path: /node-v
+      type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-volume-4
+spec:
+  containers:
+  - name: container
+    image: kubetm/init
+    volumeMounts:
+    - name: host-path
+      mountPath: /mount1
+  volumes:
+  - name : host-path
+    hostPath:
+      path: /node-v
+      type: DirectoryOrCreate
